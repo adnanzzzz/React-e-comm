@@ -2,7 +2,7 @@ import React from 'react'
 import Productcard from './Productcard'
 
 export default function Productfilter({ products, sort, setSORT, cat, setcat }) {
-    console.log(sort)
+    // console.log(sort)
 
     return (
         <>

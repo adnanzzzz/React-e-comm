@@ -10,12 +10,21 @@ export default function Productlisting() {
     let [filter, setFilter] = useState(false);
     let [sort, setSORT] = useState('')
     let [pricee, setprice] = useState([])
-    // let [trueprice,settrueprice]=useState(false)
+    let [brand,setbrand]=useState([])
+    let [BRAND,SETBRAND]=useState([])
+    let [filbrand,setfilbrand]=useState(false)
+    let [discount,setdiscount]=useState([])
+    let [rating,setrating]=useState('')
 
-
-    // console.log(cee[0])
-
-    // console.log(sort)
+        useEffect(()=>{
+            axios.get('https://wscubetech.co/ecommerce-api/brands.php')
+            .then(function(response){
+                setbrand(response.data.data)
+            })
+            .catch(function(error){
+                    console.log(error)
+            })
+        },[])
 
     useEffect(() => {
         if (pricee[0] == undefined){
@@ -28,12 +37,21 @@ export default function Productlisting() {
             pricee[1] =b;
             setprice(pricee)
         }
+        if(discount[0]==undefined){
+            let a=''
+            discount[0]=a;
+            setdiscount(discount)
+        }
+        if(discount[1]==undefined){
+            let a=''
+            discount[1]=a;
+            setdiscount(discount)
+        }
        
-        axios.get(`https://wscubetech.co/ecommerce-api/products.php?limit=30&categories=${cat}&sorting=${sort}&price_from=${pricee[0]}&price_to=${pricee[1]}`)
+        axios.get(`https://wscubetech.co/ecommerce-api/products.php?limit=30&categories=${cat}&sorting=${sort}&price_from=${pricee[0]}&price_to=${pricee[1]}&brands=${BRAND}&discount_from=${discount[0]}&discount_to=${discount[1]}&rating=${rating}`)
        
             .then(function (response) {
-            // handle success
-            // console.log(response)
+            // handle succes
             setproducts(response.data.data);
 
             // setLoader(false)
@@ -44,7 +62,7 @@ export default function Productlisting() {
                 console.log(error);
             })
 
-    }, [filter, sort, pricee])
+    }, [filter,filbrand, sort, pricee,discount,rating])
 
     useEffect(() => {
         axios.get('https://wscubetech.co/ecommerce-api/categories.php')
@@ -58,11 +76,11 @@ export default function Productlisting() {
             })
     }, [])
 
+    console.log(rating)
 
-    // console.log(a)
     return (
         <>
-            {/* <div className="overlay" ></div> */}
+           
             <div className="search-section">
                 <div className="container-fluid container-xl">
                     <div className="row main-content ml-md-0">
@@ -70,9 +88,28 @@ export default function Productlisting() {
                             // trueprice={trueprice} 
                             // settrueprice={settrueprice} 
                             pricee={pricee}
-                            setprice={setprice} cat={cat} filter={filter} setFilter={setFilter} setcat={setcat} Categories={Categories} />
+                            setprice={setprice}
+                            cat={cat} 
+                            filter={filter}
+                             setFilter={setFilter} 
+                             setcat={setcat}
+                              Categories={Categories}
+                              brand={brand}
+                              setbrand={setbrand}
+                              BRAND={BRAND}
+                              SETBRAND={SETBRAND}
+                              filbrand={filbrand}
+                              setfilbrand={setfilbrand}
+                              discount={discount}
+                              setdiscount={setdiscount} 
+                              setrating={setrating}/>
 
-                        <Productfilter sort={sort} setSORT={setSORT} cat={cat} setcat={setcat} products={products} />
+                        <Productfilter 
+                        sort={sort} 
+                        setSORT={setSORT} 
+                        cat={cat} 
+                        setcat={setcat} 
+                        products={products} />
                     </div>
                 </div>
             </div>
