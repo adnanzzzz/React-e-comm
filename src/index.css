@@ -144,3 +144,6 @@ span{font-size:14px;}
    .filter-header{height: 58px;}
    .filter-body{padding-right: 0;}
 }
+.pagination-box{
+  width: 300px;
+}

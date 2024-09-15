@@ -15,6 +15,21 @@ export default function Productlisting() {
     let [filbrand,setfilbrand]=useState(false)
     let [discount,setdiscount]=useState([])
     let [rating,setrating]=useState('')
+    let [clear,setclears]=useState(false)
+    let[pagecount,setpagecount]=useState(1)
+    let[totalpages,settotalpages]=useState('')
+    
+//     if(clear==true){
+//         setrating('')
+//         let f=['','']
+//         discount=f
+//         setdiscount(discount)
+//         SETBRAND([''])
+//         pricee=f
+//         setprice(pricee)
+//         setSORT('')
+//         // setcat([''])
+//}
 
         useEffect(()=>{
             axios.get('https://wscubetech.co/ecommerce-api/brands.php')
@@ -48,11 +63,12 @@ export default function Productlisting() {
             setdiscount(discount)
         }
        
-        axios.get(`https://wscubetech.co/ecommerce-api/products.php?limit=30&categories=${cat}&sorting=${sort}&price_from=${pricee[0]}&price_to=${pricee[1]}&brands=${BRAND}&discount_from=${discount[0]}&discount_to=${discount[1]}&rating=${rating}`)
+        axios.get(`https://wscubetech.co/ecommerce-api/products.php?limit=27&categories=${cat}&sorting=${sort}&price_from=${pricee[0]}&price_to=${pricee[1]}&brands=${BRAND}&discount_from=${discount[0]}&discount_to=${discount[1]}&rating=${rating}&page=${pagecount}`)
        
             .then(function (response) {
             // handle succes
             setproducts(response.data.data);
+            settotalpages(response.data.toal_pages)
 
             // setLoader(false)
 
@@ -62,7 +78,7 @@ export default function Productlisting() {
                 console.log(error);
             })
 
-    }, [filter,filbrand, sort, pricee,discount,rating])
+    }, [filter,filbrand, sort, pricee,discount,rating,clear,pagecount])
 
     useEffect(() => {
         axios.get('https://wscubetech.co/ecommerce-api/categories.php')
@@ -80,8 +96,7 @@ export default function Productlisting() {
 
     return (
         <>
-           
-            <div className="search-section">
+           <div className="search-section">
                 <div className="container-fluid container-xl">
                     <div className="row main-content ml-md-0">
                         <Filterproductsidebar
@@ -109,7 +124,12 @@ export default function Productlisting() {
                         setSORT={setSORT} 
                         cat={cat} 
                         setcat={setcat} 
-                        products={products} />
+                        products={products}
+                        clear={clear}
+                        setclears={setclears}
+                        setpagecount={setpagecount}
+                        pagecount={pagecount}
+                        totalpages={totalpages} />
                     </div>
                 </div>
             </div>

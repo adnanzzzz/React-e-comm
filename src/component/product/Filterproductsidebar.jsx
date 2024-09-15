@@ -3,19 +3,19 @@ import React from 'react'
 export default function Filterproductsidebar({ Categories,
                                                 setbrand,
                                                 brand,
-                                                 cat,
-                                                  setcat,
-                                                   setFilter,
-                                                    settrueprice,
-                                                      setprice,
-                                                       filter,
-                                                        setLoader,
-                                                        SETBRAND,
-                                                        BRAND,
-                                                        filbrand,
-                                                        setfilbrand,
-                                                        setdiscount,
-                                                        setrating }) {                                                           
+                                                cat,
+                                                setcat,
+                                                setFilter,
+                                                 settrueprice,
+                                                setprice,
+                                                filter,
+                                                setLoader,
+                                                SETBRAND,
+                                                BRAND,
+                                                filbrand,
+                                                setfilbrand,
+                                                setdiscount,
+                                                setrating }) {                                                           
    let b=(slug)=>{
     console.log(slug)
     if(BRAND.includes(slug)){
